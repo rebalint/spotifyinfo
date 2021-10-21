@@ -1,22 +1,36 @@
 module.exports.build = function(app, spotifyAPI, args, callback){
-    //check if the user is even listening to anything
-    spotifyAPI.getMyCurrentPlaybackState()
-        .then(function(data){
-            if(data.body && data.body.is_playing){
-                //get currently playing track
-                spotifyAPI.getMyCurrentPlayingTrack()
-                    .then(function(nowplaying){
-                        app.render('../widgets/views/nowplaying.pug', {data: data}, (err, html) => {
-                            if(err) console.log(err)
-                            callback(html)
-                        })
-                    }, function(err){
-                        console.log('Something went wrong.', err)
-                    })
-            } else {
-                callback('Not playing anything...')
-            }
-        }, function(err){
-            console.log('Something went wrong.', err)
-        })
+    setupData(spotifyAPI, args, (data) => {
+        render(app, data, callback)
+    }, (err) => {
+        console.log('Something went wrong', err)
+        //give empty string for the html out
+        callback('')
+    })
+}
+
+function setupData(spotifyAPI, args, callback, errorCB){
+    if(Object.keys(args).length === 0){
+        //no args, get currently playing and proceed with that
+        spotifyAPI.getMyCurrentPlayingTrack()
+            .then((nowplaying) => {
+                callback(nowplaying)
+            }, (err) => {
+                //return the error
+                errorCB(err)
+            })
+    } else{
+        //use args, assume it has the results of a getMyCurrentPlaying call
+        //TODO: error handling
+        callback(args)
+    }
+}
+
+function render(app, data, cb){
+    //check if track is playing
+    app.render('../widgets/views/nowplaying.pug', {data: data}, (err, html) => {
+        if(err){
+            console.log(err)
+        }
+        cb(html)
+    })
 }

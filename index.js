@@ -15,6 +15,7 @@ app.use(session({
         checkPeriod: 86400000
     }),
     resave: false,
+    saveUninitialized: true,
     secret: process.env.SESSION_SECRET
 }))
 
@@ -38,8 +39,9 @@ var scopes = ['user-read-playback-state', 'user-read-private']
 //WIDGET SETUP
 //temp solution, replace this with autoload
 const nowplaying = require('./widgets/nowplaying')
+const wikiexcerpts = require('./widgets/wikiexcerpts')
 
-const defaultWidgetSet = [nowplaying]
+const defaultWidgetSet = [nowplaying, wikiexcerpts]
 
 //ROUTING
 app.get('/', (req, res) => {
@@ -51,18 +53,16 @@ app.get('/', (req, res) => {
     } else {
         spotifyApi.setAccessToken(sessions.get(req.sessionID).accessToken)
         spotifyApi.setRefreshToken(sessions.get(req.sessionID).refreshToken)
-        var userName = spotifyApi.getMe()
-            .then(function(data){
-                buildWidgets(defaultWidgetSet, (rendered) => {
-                    res.render('index', {'name': data.body.display_name, 'widgets': rendered})
-                })
+        gatherPrerenderData((args) => {
+            buildWidgets(defaultWidgetSet, args.currentplaying, (rendered) => {
+                res.render('index', {'name': args.userdata.body.display_name, 'widgets': rendered})
             })
+        })
     }
 })
 
 app.get(process.env.REDIRECT_URI, (req, res) => {
     //get auth code
-    console.log('Callback URI got requested, storing tokens')
     var code = req.query.code
 
     if(code != undefined){
@@ -94,11 +94,12 @@ app.listen(port, () => {
 
 
 //Takes an array of widgets in widgetSet, builds all of them and returns an array of rendered html of them
-function buildWidgets(widgetSet, callback) {
+function buildWidgets(widgetSet, args, callback) {
     //convert widgetSet into an array of promises
     let promises = widgetSet.map((widget) => {
         return new Promise((resolve, reject) => {
-            widget.build(app, spotifyApi, {}, (html) => {
+            //TODO add logic to determine what data should be passed to the widget
+            widget.build(app, spotifyApi, args, (html) => {
                 resolve(html)
             })
         })
@@ -108,4 +109,22 @@ function buildWidgets(widgetSet, callback) {
     Promise.allSettled(promises).then((rendered) => {
         callback(rendered)
     })
+}
+
+//gathers all data needed to render the full widget set
+//return an object of everything, this should get expanded soon
+function gatherPrerenderData(callback){
+    //assume api tokens are already properly set up to auth the user we need
+    spotifyApi.getMe()
+        .then((userdata) => {
+            spotifyApi.getMyCurrentPlayingTrack()
+                .then((currentplaying) => {
+                    callback({userdata: userdata, 
+                        currentplaying: currentplaying})
+                }, (err) => {
+                    console.log('Something went wrong.', err)
+                })
+        }, (err) => {
+            console.log('Something went wrong.', err)
+        })
 }

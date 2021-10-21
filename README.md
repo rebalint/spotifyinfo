@@ -2,15 +2,26 @@
 
 A website which allows users to log in with their spotify account and get access to information related to the track they are currently listening to.
 
+# Setup
+
+* register an application with spotify on https://developer.spotify.com/dashboard/applications
+* Clone the repo
+* `npm install` in the root directory of the repo
+* create a file named `.env` and add the following fields:
+    ```
+    PORT: the port on which you want to run the code
+    CLIENT_ID: the client id of your Spotify app
+    CLIENT_SECRET= the client secret of your Spotify app
+    REDIRECT_URI: the redirect uri of your spotify app, but only the part after the address to this application (so if your redirect is `localhost:8888 callback`, you should set this to `/callback`) 
+    SESSION_SECRET: arbitrary value used to verify session cookies
+    ```
+* launch the server via `node index.js` from the root of the repo
+
 # TODO
 
-- [x] set up sessions
-    - [x] store spotify user auth data based on session id
-- [x] set up widgets system
-    - [x] example widget: nowplaying
+- [ ] Transition to using items instead of nowplaying returns
 - [ ] multiple accounts and devices test of framework
 - [ ] make widgets
-    - [x] nowplaying
     - [ ] wikiexcerpts
     - [ ] songRecs
         - [ ] let user play recommended songs
@@ -18,10 +29,22 @@ A website which allows users to log in with their spotify account and get access
     - [ ] lyrics
     - [ ] audiofeatures
     - [ ] discogs
+    - [x] nowplaying
+- [ ] improve ui
+    - [ ] make a responsive, good-looking css-based site
+    - [ ] add ajax
 - [ ] expand framework to handle tool widgets
 - [ ] make tool widgets
     - [ ] generate seeded recommendation playlists
     - [ ] copy a playlist to the user profile
+- [x] set up sessions
+    - [x] store spotify user auth data based on session id
+- [x] set up widgets system
+    - [x] example widget: nowplaying
+- [x] Solve the issue of rate limits
+
+# Bugs
+
 
 # Docs
 
@@ -37,36 +60,48 @@ The project is mainly composed of various widgets. Each widget has a standardize
 
 Returns a view of the user's currently played song.
 
-Args: none
+Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
 
 ### wikiexcerpts
 
 Returns links and short summaries of the wikipedia pages of the song, album and artists (if articles of these are avaliable)
 
-Args: none
+Args: the entire return object of getMyCurrentlyPlaying
 
 ### songRecs
 
 Gives several recommendations seeded with the currently playing song using spotify.
 
-Args: none
+Args:
+```
+{
+    useCurrentlyPlaying: true,
+    currentlyPlaying: {
+        //the currentlyPlaying object
+    }
+    spotifyIDs: [
+
+    ]
+
+}
+```
 
 ### lyrics
 
 Displays lyrics of the song,
 
-Args: none
+Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
 
 ### audiofeatures
 
 Displays data supplied by the audio-features spotify API endpoint.
 
-Args: if SpotifyID is given, it gives information for that id, otherwise takes the currently playing track.
+Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
 
 ### discogs
 
 Uses discogs.com to supply data about the album and artist(s)
 
-Args: none
+Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
 
 # Notes
