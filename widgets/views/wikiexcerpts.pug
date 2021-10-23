@@ -1,1 +1,4 @@
-div !{artist.parse.text['*']}
+each wiki in wikis
+    div
+        h3 !{Object.values(wiki.query.pages)[0].title}
+        p !{Object.values(wiki.query.pages)[0].extract}
