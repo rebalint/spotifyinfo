@@ -13,15 +13,14 @@ function setupData(spotifyAPI, args, callback, errorCB){
         //no args, get currently playing and proceed with that
         spotifyAPI.getMyCurrentPlayingTrack()
             .then((nowplaying) => {
-                callback(nowplaying)
+                callback(nowplaying.item)
             }, (err) => {
                 //return the error
                 errorCB(err)
             })
     } else{
-        //use args, assume it has the results of a getMyCurrentPlaying call
         //TODO: error handling
-        callback(args)
+        callback(args.song)
     }
 }
 

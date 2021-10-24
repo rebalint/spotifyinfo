@@ -20,7 +20,6 @@ A website which allows users to log in with their spotify account and get access
 # TODO
 
 - [ ] set up statics
-- [ ] Refactor to use spotify song item instead of nowplaying returns
 - [ ] Refactor to use promise instead of callback in widget.build
 - [ ] multiple accounts and devices test of framework
 - [ ] make widgets
@@ -32,7 +31,7 @@ A website which allows users to log in with their spotify account and get access
     - [ ] discogs
     - [x] nowplaying
     - [x] wikiexcerpts
-        - [ ] replace all usage of https with node-fetch
+        - [x] replace all usage of https with node-fetch
         - [x] add search and make page finding actually function
 - [ ] improve ui
     - [ ] make a responsive, good-looking css-based site
@@ -46,6 +45,7 @@ A website which allows users to log in with their spotify account and get access
 - [x] set up widgets system
     - [x] example widget: nowplaying
 - [x] Solve the issue of rate limits
+- [x] Refactor to use spotify song item instead of nowplaying returns
 
 # Bugs
 

@@ -53,8 +53,8 @@ app.get('/', (req, res) => {
     } else {
         spotifyApi.setAccessToken(sessions.get(req.sessionID).accessToken)
         spotifyApi.setRefreshToken(sessions.get(req.sessionID).refreshToken)
-        gatherPrerenderData((args) => {
-            buildWidgets(defaultWidgetSet, args.currentplaying, (rendered) => {
+        defaultViewGather((args) => {
+            buildWidgets(defaultWidgetSet, args, (rendered) => {
                 res.render('index', {'name': args.userdata.body.display_name, 'widgets': rendered})
             })
         })
@@ -113,14 +113,14 @@ function buildWidgets(widgetSet, args, callback) {
 
 //gathers all data needed to render the full widget set
 //return an object of everything, this should get expanded soon
-function gatherPrerenderData(callback){
+function defaultViewGather(callback){
     //assume api tokens are already properly set up to auth the user we need
     spotifyApi.getMe()
         .then((userdata) => {
             spotifyApi.getMyCurrentPlayingTrack()
                 .then((currentplaying) => {
                     callback({userdata: userdata, 
-                        currentplaying: currentplaying})
+                        song: currentplaying.body.item})
                 }, (err) => {
                     console.log('Something went wrong.', err)
                 })

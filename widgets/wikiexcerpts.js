@@ -1,14 +1,14 @@
-const http = require('https')
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const { compile } = require('pug');
 
 module.exports.build = function(app, spotifyAPI, args, callback){
     //assume that args are properly set 
     //TODO autobuild this to include all artists
     let helpers = []
-    args.body.item.artists.forEach(artist => {
+    args.song.artists.forEach(artist => {
         helpers.push(wikihelper(artist.id, 'artist'))         
     });
-    helpers.push(wikihelper(args.body.item.album.id, 'album'), wikihelper(args.body.item.id, 'song'))
+    helpers.push(wikihelper(args.song.album.id, 'album'), wikihelper(args.song.id, 'song'))
     Promise.allSettled(helpers).then((wikis) => {
         var filtered = wikis.filter(function (el) {
             if(el.value != null){
@@ -47,24 +47,19 @@ function wikihelper(spotifyID, type){
                     titles: WPName,
                     format: "json",
                 });
-                http.get(url, (res) => {
-                    let data = ''
-                    res.on('data', (chunk) => {
-                        data += chunk
-                    })
-                    res.on('end', () => {
-                        ret = JSON.parse(data)
+                fetch(url)
+                    .then(res => res.json())
+                    .then(json => {
                         //filter out the page returned by querying the page titled 'Null'
-                        if(ret.query.pages.hasOwnProperty('21712')){
+                        if(json.query.pages.hasOwnProperty('21712')){
                             resolve(null)
                         } else {
-                            ret.pageUrl = 'https://en.wikipedia.org/wiki/' + WPName
+                            json.pageUrl = 'https://en.wikipedia.org/wiki/' + WPName
                             //console.log(ret.query)
-                            resolve(ret)
+                            resolve(json)
                         }
                     })
-                })       
-        
+                    .catch(err => reject(err))
         })
         .catch(err => reject(err))
     })
