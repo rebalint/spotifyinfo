@@ -20,11 +20,10 @@ A website which allows users to log in with their spotify account and get access
 # TODO
 
 - [ ] set up statics
-- [ ] Transition to using items instead of nowplaying returns
+- [ ] Refactor to use spotify song item instead of nowplaying returns
+- [ ] Refactor to use promise instead of callback in widget.build
 - [ ] multiple accounts and devices test of framework
 - [ ] make widgets
-    - [ ] wikiexcerpts
-        - [ ] add search and make page finding actually function  
     - [ ] songRecs
         - [ ] let user play recommended songs
         - [ ] let user add recommended songs to playlists
@@ -32,6 +31,9 @@ A website which allows users to log in with their spotify account and get access
     - [ ] audiofeatures
     - [ ] discogs
     - [x] nowplaying
+    - [x] wikiexcerpts
+        - [ ] replace all usage of https with node-fetch
+        - [x] add search and make page finding actually function
 - [ ] improve ui
     - [ ] make a responsive, good-looking css-based site
     - [ ] add ajax
@@ -70,6 +72,8 @@ Returns links and short summaries of the wikipedia pages of the song, album and 
 
 Args: the entire return object of getMyCurrentlyPlaying
 
+Note: several critical bugs seem to have disappeared with no clear reason. Return here if things get weird.
+
 ### songRecs
 
 Gives several recommendations seeded with the currently playing song using spotify.
@@ -107,3 +111,5 @@ Uses discogs.com to supply data about the album and artist(s)
 Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
 
 # Notes
+    
+
