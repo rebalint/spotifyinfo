@@ -9,6 +9,8 @@ const session = require('express-session')
 const { render } = require('pug')
 const MemoryStore = require('memorystore')(session)
 
+app.use('/static', express.static('static'))
+
 app.use(session({
     cookie: {maxAge: 86400000},
     store: new MemoryStore({
@@ -40,8 +42,9 @@ var scopes = ['user-read-playback-state', 'user-read-private']
 //temp solution, replace this with autoload
 const nowplaying = require('./widgets/nowplaying')
 const wikiexcerpts = require('./widgets/wikiexcerpts')
+const audiofeatures = require('./widgets/audiofeatures')
 
-const defaultWidgetSet = [nowplaying, wikiexcerpts]
+const defaultWidgetSet = [nowplaying, wikiexcerpts, audiofeatures]
 
 //ROUTING
 app.get('/', (req, res) => {
