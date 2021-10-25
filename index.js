@@ -26,7 +26,7 @@ app.set('view engine', 'pug')
 //SPOTIFY SETUP
 var SpotifyWebApi = require('spotify-web-api-node')
 
-var redirectUri = 'http://localhost:8888' + process.env.REDIRECT_URI
+var redirectUri = process.env.BASE_URL + `:${port}` + process.env.REDIRECT_URI
 
 var spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID,

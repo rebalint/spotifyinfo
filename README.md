@@ -11,8 +11,9 @@ A website which allows users to log in with their spotify account and get access
     ```
     PORT: the port on which you want to run the code
     CLIENT_ID: the client id of your Spotify app
-    CLIENT_SECRET= the client secret of your Spotify app
-    REDIRECT_URI: the redirect uri of your spotify app, but only the part after the address to this application (so if your redirect is `localhost:8888 callback`, you should set this to `/callback`) 
+    CLIENT_SECRET: the client secret of your Spotify app
+    REDIRECT_URI: the redirect uri of your spotify app, but only the part after the address to this application (so if your redirect is `localhost:8888 callback`, you should set this to `/callback`)
+    BASE_URL: the base url of your server (without port number)
     SESSION_SECRET: arbitrary value used to verify session cookies
     ```
 * launch the server via `node index.js` from the root of the repo
