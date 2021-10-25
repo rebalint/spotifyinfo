@@ -1,0 +1,24 @@
+on:
+    push:
+        branches: [ master ]
+    
+jobs:
+    deploy:
+        runs-on: self-hosted
+        environment: hosting
+        strategy: 
+            matrix:
+              node-version: [14.x]
+            
+        steps:
+          - uses: actions/checkout@v2
+          - name: Use Node.js ${{ matrix.node-version }}
+            uses: actions/setup-node@v1
+            with:
+                node-version: ${{ matrix.node-version }}
+          - shell: bash
+            env:
+                DOTENV: ${{secrets.DOTENV}}
+            run: 'echo "$DOTENV" > .env'
+          - run: npm install
+          - run: pm2 restart spotifyinfo
