@@ -21,7 +21,6 @@ A website which allows users to log in with their spotify account and get access
 # TODO
 
 - [ ] set up statics
-- [ ] multiple accounts and devices test of framework
 - [ ] make widgets
     - [ ] audiofeatures
     - [ ] lyrics
@@ -46,9 +45,9 @@ A website which allows users to log in with their spotify account and get access
     - [x] example widget: nowplaying
 - [x] Solve the issue of rate limits
 - [x] Refactor to use spotify song item instead of nowplaying returns
+- [x] multiple accounts and devices test of framework
 
 # Bugs
-
 
 # Docs
 
