@@ -16,6 +16,6 @@ jobs:
             uses: actions/setup-node@v1
             with:
                 node-version: ${{ matrix.node-version }}
+          - run: ${{ secrets.ENV }} > .env
           - run: npm install
-          - run: npm run build --if-present
           - run: pm2 restart spotifyinfo
