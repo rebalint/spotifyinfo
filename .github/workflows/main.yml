@@ -16,9 +16,9 @@ jobs:
             uses: actions/setup-node@v1
             with:
                 node-version: ${{ matrix.node-version }}
-          - run: 'echo "$ENV" > .env'
+          - run: 'echo "$DOTENV" > .env'
             shell: bash
             env:
-                ENV: ${{secrets.ENV}}
+                DOTENV: ${{secrets.DOTENV}}
           - run: npm install
           - run: pm2 restart spotifyinfo
