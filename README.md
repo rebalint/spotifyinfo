@@ -49,7 +49,6 @@ A website which allows users to log in with their spotify account and get access
 
 # Bugs
 
-
 # Docs
 
 ## index.js
