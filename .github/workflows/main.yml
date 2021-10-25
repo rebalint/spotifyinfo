@@ -19,7 +19,6 @@ jobs:
           - shell: bash
             env:
                 DOTENV: ${{secrets.DOTENV}}
-            run: |
-                'echo "$DOTENV" > .env'
+            run: 'echo "$DOTENV" > .env'
           - run: npm install
           - run: pm2 restart spotifyinfo
