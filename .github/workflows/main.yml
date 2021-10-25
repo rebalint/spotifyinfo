@@ -5,7 +5,7 @@ on:
 jobs:
     deploy:
         runs-on: self-hosted
-    
+        environment: hosting
         strategy: 
             matrix:
               node-version: [14.x]
