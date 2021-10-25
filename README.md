@@ -20,10 +20,7 @@ A website which allows users to log in with their spotify account and get access
 
 # TODO
 
-- [ ] set up statics
-- [ ] multiple accounts and devices test of framework
 - [ ] make widgets
-    - [ ] audiofeatures
     - [ ] lyrics
     - [ ] songRecs
         - [ ] let user play recommended songs
@@ -33,6 +30,7 @@ A website which allows users to log in with their spotify account and get access
     - [x] wikiexcerpts
         - [x] replace all usage of https with node-fetch
         - [x] add search and make page finding actually function
+    - [x] audiofeatures
 - [ ] improve ui
     - [ ] make a responsive, good-looking css-based site
     - [ ] add ajax
@@ -46,6 +44,8 @@ A website which allows users to log in with their spotify account and get access
     - [x] example widget: nowplaying
 - [x] Solve the issue of rate limits
 - [x] Refactor to use spotify song item instead of nowplaying returns
+- [x] set up statics
+- [x] multiple accounts and devices test of framework
 
 # Bugs
 
