@@ -20,14 +20,13 @@ A website which allows users to log in with their spotify account and get access
 # TODO
 
 - [ ] set up statics
-- [ ] Refactor to use promise instead of callback in widget.build
 - [ ] multiple accounts and devices test of framework
 - [ ] make widgets
+    - [ ] audiofeatures
+    - [ ] lyrics
     - [ ] songRecs
         - [ ] let user play recommended songs
         - [ ] let user add recommended songs to playlists
-    - [ ] lyrics
-    - [ ] audiofeatures
     - [ ] discogs
     - [x] nowplaying
     - [x] wikiexcerpts
