@@ -1,0 +1,9 @@
+table
+    each line in Object.keys(data.body)
+        tr
+            if tooltips.hasOwnProperty(line)
+                td(class="tooltip")= line
+                    span(class="tooltiptext")= tooltips[line]
+            else
+                td= line
+            td= data.body[line]
