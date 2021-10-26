@@ -63,13 +63,13 @@ The project is mainly composed of various widgets. Each widget has a standardize
 
 Returns a view of the user's currently played song.
 
-Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
+Args: optionally takes a song item
 
 ### wikiexcerpts
 
 Returns links and short summaries of the wikipedia pages of the song, album and artists (if articles of these are avaliable)
 
-Args: the entire return object of getMyCurrentlyPlaying
+Args: a song item
 
 Note: several critical bugs seem to have disappeared with no clear reason. Return here if things get weird.
 
@@ -77,7 +77,7 @@ Note: several critical bugs seem to have disappeared with no clear reason. Retur
 
 Gives several recommendations seeded with the currently playing song using spotify.
 
-Args:
+Args: TODO
 ```
 {
     useCurrentlyPlaying: true,
@@ -93,21 +93,21 @@ Args:
 
 ### lyrics
 
-Displays lyrics of the song,
+Displays lyrics of the song using the Genius api.
 
-Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
+Args: a song item
 
 ### audiofeatures
 
 Displays data supplied by the audio-features spotify API endpoint.
 
-Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
+Args: a song item
 
 ### discogs
 
 Uses discogs.com to supply data about the album and artist(s)
 
-Args: optionally takes the entire return object of getMyCurrentlyPlaying and uses it to render (to decrease request numbers)
+Args: a song item
 
 # Notes
     

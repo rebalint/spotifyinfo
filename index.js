@@ -43,8 +43,9 @@ var scopes = ['user-read-playback-state', 'user-read-private']
 const nowplaying = require('./widgets/nowplaying')
 const wikiexcerpts = require('./widgets/wikiexcerpts')
 const audiofeatures = require('./widgets/audiofeatures')
+const lyrics = require('./widgets/lyrics')
 
-const defaultWidgetSet = [nowplaying, wikiexcerpts, audiofeatures]
+const defaultWidgetSet = [nowplaying, wikiexcerpts, audiofeatures, lyrics]
 
 //ROUTING
 app.get('/', (req, res) => {
