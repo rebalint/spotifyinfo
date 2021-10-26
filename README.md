@@ -21,11 +21,11 @@ A website which allows users to log in with their spotify account and get access
 # TODO
 
 - [ ] make widgets
-    - [ ] lyrics
     - [ ] songRecs
         - [ ] let user play recommended songs
         - [ ] let user add recommended songs to playlists
     - [ ] discogs
+    - [x] lyrics
     - [x] nowplaying
     - [x] wikiexcerpts
         - [x] replace all usage of https with node-fetch
