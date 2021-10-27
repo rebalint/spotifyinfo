@@ -49,6 +49,11 @@ A website which allows users to log in with their spotify account and get access
 
 # Bugs
 
+- Song: Outkast: B.O.B.
+    - bugs:
+        - wikipedia page for artist and album not showing
+        - wrong lyrics
+
 # Docs
 
 ## index.js

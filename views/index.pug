@@ -4,6 +4,7 @@ html
         title SpotifyInfo
     body 
         h1= `Hello, ${name}`
-        each widget in widgets 
-            div !{widget.value}
-            br
+        .flex-container
+            each widget in widgets 
+                div(class="widget" id=widget.value.name) !{widget.value.html}
+                br
