@@ -6,7 +6,6 @@ const app = express()
 const port = process.env.PORT
 
 const session = require('express-session')
-const { render } = require('pug')
 const MemoryStore = require('memorystore')(session)
 
 app.use('/static', express.static('static'))
@@ -39,13 +38,18 @@ var spotifyApi = new SpotifyWebApi({
 var scopes = ['user-read-playback-state', 'user-read-private']
 
 //WIDGET SETUP
-//temp solution, replace this with autoload
+//load widgets
 const nowplaying = require('./widgets/nowplaying')
 const wikiexcerpts = require('./widgets/wikiexcerpts')
 const audiofeatures = require('./widgets/audiofeatures')
 const lyrics = require('./widgets/lyrics')
 
-const defaultWidgetSet = [nowplaying, wikiexcerpts, audiofeatures, lyrics]
+//widget set, each object contains the req-d widget and various display properties
+const defaultWidgetSet = [
+    {widget: nowplaying, name: "nowplaying"},
+    {widget: wikiexcerpts, name: "wikiexcerpts"},
+    {widget: lyrics, name: "lyrics"},
+    {widget: audiofeatures, name: "audiofeatures"}]
 
 //ROUTING
 app.get('/', (req, res) => {
@@ -103,8 +107,8 @@ function buildWidgets(widgetSet, args, callback) {
     let promises = widgetSet.map((widget) => {
         return new Promise((resolve, reject) => {
             //TODO add logic to determine what data should be passed to the widget
-            widget.build(app, spotifyApi, args, (html) => {
-                resolve(html)
+            widget.widget.build(app, spotifyApi, args, (html) => {
+                resolve({html: html, name: widget.name})
             })
         })
     })

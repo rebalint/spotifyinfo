@@ -1,4 +1,23 @@
-/* Tooltip container */
+/* FLEX */
+.flex-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.widget{
+  margin: auto;
+}
+
+#nowplaying{
+  flex-basis: 100%;
+}
+
+#audiofeatures{
+  margin-top: 5%;
+}
+
+/* TOOLTIP */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -8,8 +27,7 @@
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
-    min-width: 400px;
-    width: auto;
+    width: 35vw;
     height: auto;
     background-color: black;
     color: #fff;
